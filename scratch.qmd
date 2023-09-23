@@ -1,0 +1,39 @@
+---
+title: "scratchwork"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+m1 = lm(price ~ carat, data = diamonds)
+m2 = lm(price ~ carat + cut, data = diamonds)
+```
+
+```{r}
+combine_model = function(...) {
+  model_list = list(...)
+  
+  lapply(model_list, function(lm_object) lm_object$coefficients)
+}
+```
+
+```{r}
+# Sample list of data frames
+df1 <- data.frame(ID = c(1, 2, 3), Value = c(10, 20, 30))
+df2 <- data.frame(ID = c(4, 5, 6), Value = c(40, 50, 60))
+df3 <- data.frame(ID = c(7, 8, 9), Value = c(70, 80, 90))
+
+df_list <- list(df1, df2, df3)
+
+# Apply bind_rows() to the list
+combined_df <- reduce(df_list, bind_rows)
+combined_df
+```
+
+```{r}
+?reduce
+```

@@ -1,3 +1,7 @@
-strsplit1 <- function(x, split) {
-  strsplit(x, split = split)[[1]]
+library(tidyverse)
+
+combine_model = function(...) {
+  model_list = list(...)
+
+  lapply(model_list, function(lm_object) lm_object$coefficients)
 }
