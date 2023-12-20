@@ -26,7 +26,7 @@ smelt = function(...) {
 check = list(lm_1, lm_2, lm_3)
 
 # apply summary
-summaries = lapply(check, summary)
-for (i in 1:length(summaries)) {
-  print(summaries[[i]]$r.squared)
-}
+#summaries = lapply(check, summary)
+#for (i in 1:length(summaries)) {
+#  print(summaries[[i]]$r.squared)
+#}
