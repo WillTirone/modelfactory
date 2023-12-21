@@ -1,4 +1,4 @@
-#' A function to combine models
+#' A function to combine models. Making a change here to see the effect.
 #'
 #' @param ... list of models to summarize
 #'

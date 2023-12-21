@@ -2,7 +2,7 @@
 % Please edit documentation in R/combine.R
 \name{smelt}
 \alias{smelt}
-\title{A function to combine models}
+\title{A function to combine models. Making a change here to see the effect.}
 \usage{
 smelt(...)
 }
@@ -13,7 +13,7 @@ smelt(...)
 output
 }
 \description{
-A function to combine models
+A function to combine models. Making a change here to see the effect.
 }
 \examples{
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
