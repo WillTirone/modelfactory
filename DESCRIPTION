@@ -2,7 +2,7 @@ Package: modelfactory
 Title: Combines Model Metrics Into A DataFrame
 Version: 0.0.0.9000
 Authors@R: person("William", "Tirone", , "will.tirone1@gmail.com", role = c("aut", "cre"))
-Description: More to come.
+Description: Package to combine model metrics.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -12,5 +12,4 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     dplyr,
-    stats,
-    stringr
+    stats
