@@ -1,7 +1,16 @@
 # Questions 
 
-- How to figure out what other people have done? 
 - How does `plot()` determine what object classes it can plot? 
+  - methods(class = class(lm_1))
+- do we need qualified calls to everything, i.e. dplyr::left_join?
+  - Yes but what about "base" packages i.e. stats
+  
+# TODO
+
+- maybe put helpers in different file 
+- function to get betas + C.I. + coeff
+- look at R idiomatic syntax
+- unit tests 
 
 # Installation
 

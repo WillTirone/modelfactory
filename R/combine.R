@@ -1,25 +1,23 @@
-#' Helper function to compute metrics from a list of models summmaries.
-#'
-#' @param model_sum list of model summary objects
-#' @param metric metric from summary to return
-#'
-#' @return A numeric vector
-#' @export
-#'
-#' @examples
-#' # internal use only
+
+# internal function to get metrics from summary
 get_metric = function(model_sum, metric) {
+  output = unlist(lapply(model_sum, function(x) x[[metric]]))
+  return(output)
+}
 
-  # just checking ONE item for now
-  # assumes they're all the same so check all at some point
-  if (metric %in% names(model_sum[[1]])) {
+# internal function to calculate metrics from summary
+calc_metric = function(model_sum, calc) {
+
+  if (calc == "MSE"){
     output = unlist(lapply(model_sum,
-                           function(lm_summary) lm_summary[[metric]]))
-
-  } else {
-    stop(paste("Metric '", metric, "' not found in summary object."))
+                           function(x) mean(x[['residuals']]^2)))
+  } else if (calc == "RMSE") {
+    output = unlist(lapply(model_sum,
+                           function(x) sqrt(mean(x[['residuals']]^2))))
+  } else if (calc == "MAE") {
+    output = unlist(lapply(model_sum,
+                           function(x) mean(abs(x[['residuals']]))))
   }
-
   return(output)
 }
 
@@ -36,20 +34,19 @@ get_metric = function(model_sum, metric) {
 #' smelt(lm_1, lm_2)
 smelt = function(...) {
 
-  # goal: include MAE, MSE, RMSE
-  # second: output df with estimate, C.I., S.E.
-
   models = list(...)
   model_sum = lapply(models, summary)
 
+  # just checking one type, check to make sure all are lm in future
+  if (class(models[[1]])[1] == 'lm'){
   # combine everything into a dataframe to output
-  output = data.frame(model = as.character(get_metric(model_sum, 'call')),
-                      r.squared = get_metric(model_sum, 'r.squared'),
-                      adj.r.squared = get_metric(model_sum, 'adj.r.squared'),
-
-                      # this is what we want, but want in a function
-                      MSE = unlist(lapply(model_sum,
-                                          function(x) mean(x[['residuals']]^2))))
-
-  return(output)
+  data.frame(model = as.character(get_metric(model_sum, 'call')),
+                    r.squared = get_metric(model_sum, 'r.squared'),
+                    adj.r.squared = get_metric(model_sum, 'adj.r.squared'),
+                    MSE = calc_metric(model_sum, 'MSE'),
+                    RMSE = calc_metric(model_sum, 'RMSE'),
+                    MAE = calc_metric(model_sum, 'MAE'))
+  } else {
+    stop('Model type not yet supported!')
+  }
 }
