@@ -2,18 +2,18 @@
 % Please edit documentation in R/combine.R
 \name{smelt}
 \alias{smelt}
-\title{A function to combine models. Making a change here to see the effect.}
+\title{A function to combine models.}
 \usage{
 smelt(...)
 }
 \arguments{
-\item{...}{list of models to summarize}
+\item{...}{list of models to summarize.}
 }
 \value{
 output
 }
 \description{
-A function to combine models. Making a change here to see the effect.
+A function to combine models.
 }
 \examples{
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
