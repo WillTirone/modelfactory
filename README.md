@@ -1,3 +1,7 @@
+
+<img src="images/logo.png" height="300"/>
+
+
 # Questions 
 
 - How does `plot()` determine what object classes it can plot? 
