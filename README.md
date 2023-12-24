@@ -1,46 +1,40 @@
 
 <img src="logo.png" height="300"/>
 
+# About 
 
-# Questions 
-
-- How does `plot()` determine what object classes it can plot? 
-  - methods(class = class(lm_1))
-- do we need qualified calls to everything, i.e. dplyr::left_join?
-  - Yes but what about "base" packages i.e. stats? stats::BIC?
-  - Should those be in DESCRIPTION?
-  
-# TODO
-
-- check all model types in list of summaries
-- function to get betas + C.I. + coeff
-- look at R idiomatic syntax
-- unit tests 
+`modelfactory` is an R package that takes care of the tedious task of comparing
+model metrics and attributes. It's always a pain when I need to calculate, say,
+an intercept, S.E., and 95% C.I. for several models and combine them into a dataframe.
+This package aims to take care of that.
 
 # Installation
 
 You can install the development version of modelfactory with: 
-      
+
 ``` r
 # install.packages("devtools")
 devtools::install_github("WillTirone/modelfactory")
 ```
 
-# Notes 
+# Contributing 
 
-- currently on: 4.5.2
+Contributions are encouraged and welcomed, feel free to submit a PR or open an 
+issue!
 
-- important commands: 
-  - load devtools 
-  - load_all() -> most important in workflow!
-  - check() 
-  - code > insert roxygen skeleton
-  - document() -> "converts" roxygen to something accessible with ?func
-  
-# Workflow: 
+# Workflow 
 
-- write code 
-- load_all() -> directly loads package in memory 
-- try code 
-- verify with check() 
-  - run this often to find problems early
+1. Edit one or more files below R/.
+2. document() (if you’ve made any changes that impact help files or NAMESPACE)
+3. load_all()
+4. Run some examples interactively.
+5. test() (or test_active_file())
+6. check()
+
+# TODO
+
+- currently on ch. 7 of book 
+- check all model types in list of summaries
+- function to get betas + C.I. + coeff
+- look at R idiomatic syntax
+- unit tests 
