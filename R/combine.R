@@ -1,29 +1,9 @@
+source("R/helpers.R")
 
-# internal function to get metrics from summary
-get_metric = function(model_sum, metric) {
-  output = unlist(lapply(model_sum, function(x) x[[metric]]))
-  return(output)
-}
-
-# internal function to calculate metrics from summary
-calc_metric = function(model_sum, calc) {
-
-  if (calc == "MSE"){
-    output = unlist(lapply(model_sum,
-                           function(x) mean(x[['residuals']]^2)))
-  } else if (calc == "RMSE") {
-    output = unlist(lapply(model_sum,
-                           function(x) sqrt(mean(x[['residuals']]^2))))
-  } else if (calc == "MAE") {
-    output = unlist(lapply(model_sum,
-                           function(x) mean(abs(x[['residuals']]))))
-  }
-  return(output)
-}
-
-#' A function to combine models.
+#' A function to calculate and combine model metrics for any number of
+#' lm models.
 #'
-#' @param ... list of models to summarize.
+#' @param ... list of lm models to summarize.
 #'
 #' @return output
 #' @export
@@ -37,8 +17,9 @@ smelt = function(...) {
   models = list(...)
   model_sum = lapply(models, summary)
 
-  # just checking one type, check to make sure all are lm in future
-  if (class(models[[1]])[1] == 'lm'){
+  # make sure every item is an lm summary
+  if (all(unlist(lapply(model_sum, function(x) class(x) == "summary.lm")))){
+
   # combine everything into a dataframe to output
   data.frame(model = as.character(get_metric(model_sum, 'call')),
                     r.squared = get_metric(model_sum, 'r.squared'),
@@ -46,7 +27,19 @@ smelt = function(...) {
                     MSE = calc_metric(model_sum, 'MSE'),
                     RMSE = calc_metric(model_sum, 'RMSE'),
                     MAE = calc_metric(model_sum, 'MAE'))
+
+  } else if (all(unlist(lapply(model_sum,
+                               function(x) class(x) == "summary.glm")))) {
+
+    # data frame but for glm objects
+    data.frame(model = as.character(get_metric(model_sum, 'call')),
+               deviance = get_metric(model_sum, 'deviance'),
+               AIC = get_metric(model_sum, 'aic'),
+               # may need to make a separate function for this
+               BIC = unlist(lapply(models, function(x) stats::BIC(x))))
+
   } else {
     stop('Model type not yet supported!')
   }
 }
+

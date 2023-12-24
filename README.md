@@ -7,11 +7,12 @@
 - How does `plot()` determine what object classes it can plot? 
   - methods(class = class(lm_1))
 - do we need qualified calls to everything, i.e. dplyr::left_join?
-  - Yes but what about "base" packages i.e. stats
+  - Yes but what about "base" packages i.e. stats? stats::BIC?
+  - Should those be in DESCRIPTION?
   
 # TODO
 
-- maybe put helpers in different file 
+- check all model types in list of summaries
 - function to get betas + C.I. + coeff
 - look at R idiomatic syntax
 - unit tests 
