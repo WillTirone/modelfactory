@@ -12,4 +12,5 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     dplyr,
+    lme4,
     stats

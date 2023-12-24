@@ -42,7 +42,9 @@ issue!
 # TODO
 
 - currently on ch. 7 of book 
-- check all model types in list of summaries
 - function to get betas + C.I. + coeff
-- look at R idiomatic syntax
+- look at R style guide
+- check what type of glm it is? can you compare different glm types? 
+- add for lme4::glmer
 - unit tests 
+  - what's the best way to test a dataframe output or a plot output? 
