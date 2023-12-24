@@ -17,6 +17,14 @@ You can install the development version of modelfactory with:
 devtools::install_github("WillTirone/modelfactory")
 ```
 
+# Usage
+
+``` r
+lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
+lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
+smelt(lm_1, lm_2)
+```
+
 # Contributing 
 
 Contributions are encouraged and welcomed, feel free to submit a PR or open an 
