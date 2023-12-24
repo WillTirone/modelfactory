@@ -1,5 +1,5 @@
 
-<img src="images/logo.png" height="300"/>
+<img src="logo.png" height="300"/>
 
 
 # Questions 
