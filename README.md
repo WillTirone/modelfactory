@@ -1,5 +1,5 @@
 
-<img src="logo.png" height="300"/>
+<img src="inst/logo.png" height="300"/>
 
 # About 
 
