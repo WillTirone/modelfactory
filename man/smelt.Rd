@@ -2,23 +2,27 @@
 % Please edit documentation in R/combine.R
 \name{smelt}
 \alias{smelt}
-\title{A function to calculate and combine model metrics for any number of
-lm models.}
+\title{Calculate and combine model metrics for any number of lm / glm / lmer models.}
 \usage{
 smelt(...)
 }
 \arguments{
-\item{...}{list of lm models to summarize.}
+\item{...}{A list of models to summarize and combine.}
 }
 \value{
-output
+A \code{\link[=data.frame]{data.frame()}} that includes a variety of evaluation metrics.
 }
 \description{
-A function to calculate and combine model metrics for any number of
-lm models.
+Calculate and combine model metrics for any number of lm / glm / lmer models.
 }
 \examples{
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
-lm_2 = lm(mpg ~ cyl + wt + drat, data = mtcars)
-smelt(lm_1, lm_2)
+lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
+lm_3 = lm(mpg ~ ., data = mtcars)
+lm_combined = smelt(lm_1, lm_2, lm_3)
+
+glm_1 = glm(vs ~ drat + hp, data = mtcars)
+glm_2 = glm(vs ~ wt + qsec, data = mtcars)
+glm_3 = glm(vs ~ ., data = mtcars)
+glm_combined = smelt(glm_1, glm_2, glm_3)
 }

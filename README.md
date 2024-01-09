@@ -39,12 +39,19 @@ issue!
 5. test() (or test_active_file())
 6. check()
 
+# GOAL 
+
+3 exported functions total
+* put all metrics in one function (lm / glm)
+* put all coeff + confint + se in one function (lm / glm / lme4)
+- something to output "best" model by a given criteria
+
 # TODO
 
-- currently on ch. 7 of book 
+- currently on ch. ? of book 
+- throw error if nothing is passed in 
 - function to get betas + C.I. + coeff
 - look at R style guide
 - check what type of glm it is? can you compare different glm types? 
-- add for lme4::glmer
 - unit tests 
   - what's the best way to test a dataframe output or a plot output? 
