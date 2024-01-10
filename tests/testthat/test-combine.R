@@ -5,36 +5,52 @@
 lm_1 = stats::lm(mpg ~ cyl + disp + hp, data = mtcars)
 lm_2 = stats::lm(mpg ~ hp + drat + wt, data = mtcars)
 lm_3 = stats::lm(mpg ~ ., data = mtcars)
-lm_combined = stack_metrics(lm_1, lm_2, lm_3)
+lm_metrics = stack_metrics(lm_1, lm_2, lm_3)
+lm_coeff = stack_coeff(lm_1, lm_2, lm_3)
 
 # set up basic glm's to test properties of smelt()
 glm_1 = stats::glm(vs ~ drat + hp, data = mtcars)
 glm_2 = stats::glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = stats::glm(vs ~ ., data = mtcars)
-glm_combined = stack_metrics(glm_1, glm_2, glm_3)
+glm_metrics = stack_metrics(glm_1, glm_2, glm_3)
+glm_coeff = stack_coeff(glm_1, glm_2, glm_3)
 
 lmer_1 = lme4::lmer(Sepal.Length ~ (1 | Species), data = iris)
 lmer_2 = lme4::lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
-lmer_combined = stack_metrics(lmer_1, lmer_2)
+lmer_metrics = stack_metrics(lmer_1, lmer_2)
 
 # testing functions -------------------
-
+# testing stack_metrics()
 test_that("dimension of output dataframe are correct", {
-  shape = dim(lm_combined)
-  expect_equal(shape, c(3,6))
+  expect_equal(dim(lm_metrics), c(3,6))
+  expect_equal(dim(glm_metrics), c(3,4))
+  expect_equal(dim(lmer_metrics), c(2,4))
 })
 
 test_that("output is correctly a dataframe", {
-  expect_s3_class(lm_combined, 'data.frame')
-  expect_s3_class(glm_combined, 'data.frame')
-  expect_s3_class(lmer_combined, 'data.frame')
+  expect_s3_class(lm_metrics, 'data.frame')
+  expect_s3_class(glm_metrics, 'data.frame')
+  expect_s3_class(lmer_metrics, 'data.frame')
 })
 
 test_that("correct columns are returned", {
-  expect_equal(names(lm_combined),
+  expect_equal(names(lm_metrics),
                c("model", "r.squared", "adj.r.squared", "MSE", "RMSE", "MAE"))
-  expect_equal(names(glm_combined),
+  expect_equal(names(glm_metrics),
                c("model", "deviance", "AIC", "BIC"))
-  expect_equal(names(lmer_combined),
+  expect_equal(names(lmer_metrics),
                c("model", "deviance", "AIC", "BIC"))
 })
+
+# testing stack_coeff()
+test_that("dimension of output dataframe are correct", {
+  expect_equal(dim(lm_coeff), c(19, 7))
+  expect_equal(dim(glm_coeff), c(17, 7))
+})
+
+test_that("output is correctly a dataframe", {
+  expect_s3_class(lm_coeff, 'data.frame')
+  expect_s3_class(glm_coeff, 'data.frame')
+})
+
+

@@ -37,6 +37,7 @@ issue!
 - testing: 
   - add coefficient testing 
 - ask someone: what metrics do we want? 
+- add R^2 / adj R^2
   
 # Presentation Notes: 
 
