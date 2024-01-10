@@ -1,6 +1,9 @@
-#' Calculate and combine model metrics for any number of lm / glm / lmer models.
+#' Calculate and combine model metrics for any number of lm and glm models
 #'
-#' @param ... A list of models to summarize and combine.
+#' `stack_metrics()` does some stuff that I will write more about later,
+#' this is the description section.
+#'
+#' @param ... models to summarize and combine.
 #'
 #' @return A [data.frame()] that includes a variety of evaluation metrics.
 #' @export
@@ -9,13 +12,13 @@
 #' lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
 #' lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
 #' lm_3 = lm(mpg ~ ., data = mtcars)
-#' lm_combined = smelt(lm_1, lm_2, lm_3)
+#' lm_combined = stack_metrics(lm_1, lm_2, lm_3)
 #'
 #' glm_1 = glm(vs ~ drat + hp, data = mtcars)
 #' glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 #' glm_3 = glm(vs ~ ., data = mtcars)
-#' glm_combined = smelt(glm_1, glm_2, glm_3)
-smelt = function(...) {
+#' glm_combined = stack_metrics(glm_1, glm_2, glm_3)
+stack_metrics = function(...) {
 
   models = list(...)
   model_sum = lapply(models, summary)
@@ -44,26 +47,41 @@ smelt = function(...) {
   }
 }
 
-#' With several models, we want to compare their coefficients, confidence
-#' intervals, and standard errors.
+#' Stack coefficents, confidence intervals, and standard errors
 #'
-#' @param ... A list of models to summarize and combine.
+#' `stack_coeff()` does some stuff that I will write more about later,
+#' this is the description section.
 #'
-#' @return A [data.frame()]
+#' @param ... models to summarize and combine.
+#'
+#' @return A [data.frame()] with coefficients, C.I.s., and standard errors.
 #' @export
 #'
 #' @examples
+#' lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
+#' lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
+#' lm_3 = lm(mpg ~ ., data = mtcars)
+#' lm_combined = stack_coeff(lm_1, lm_2, lm_3)
+#'
+#' glm_1 = glm(vs ~ drat + hp, data = mtcars)
+#' glm_2 = glm(vs ~ wt + qsec, data = mtcars)
+#' glm_3 = glm(vs ~ ., data = mtcars)
+#' glm_combined = stack_coeff(glm_1, glm_2, glm_3)
 stack_coeff = function(...) {
 
   models = list(...)
-  model_sum = lapply(models, summary)
+  output = data.frame()
 
-  data.frame(
-    model = as.character(get_metric(model_sum, "call")),
-    coeff = get_metric(model_sum, 'coefficients')
-  )
-  #confint(lm_1)
-
+  for (model in models) {
+    temp_data = data.frame(model_name = as.character(model$call)[2],
+                           summary(model)$coef[, c('Estimate', 'Std. Error')],
+                           stats::confint(model)) |>
+      tibble::rownames_to_column(var = 'coefficient')
+    output = dplyr::bind_rows(output, temp_data)
+  }
+  names(output) = c("coefficient", "model_name", "estimate", "std_error",
+                    "lb_2.5%", "ub_97.5%")
+  return(output)
 }
 
 

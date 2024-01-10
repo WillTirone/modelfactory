@@ -2,18 +2,28 @@
 % Please edit documentation in R/combine.R
 \name{stack_coeff}
 \alias{stack_coeff}
-\title{With several models, we want to compare their coefficients, confidence
-intervals, and standard errors.}
+\title{Stack coefficents, confidence intervals, and standard errors}
 \usage{
 stack_coeff(...)
 }
 \arguments{
-\item{...}{A list of models to summarize and combine.}
+\item{...}{models to summarize and combine.}
 }
 \value{
-A \code{\link[=data.frame]{data.frame()}}
+A \code{\link[=data.frame]{data.frame()}} with coefficients, C.I.s., and standard errors.
 }
 \description{
-With several models, we want to compare their coefficients, confidence
-intervals, and standard errors.
+\code{stack_coeff()} does some stuff that I will write more about later,
+this is the description section.
+}
+\examples{
+lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
+lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
+lm_3 = lm(mpg ~ ., data = mtcars)
+lm_combined = stack_coeff(lm_1, lm_2, lm_3)
+
+glm_1 = glm(vs ~ drat + hp, data = mtcars)
+glm_2 = glm(vs ~ wt + qsec, data = mtcars)
+glm_3 = glm(vs ~ ., data = mtcars)
+glm_combined = stack_coeff(glm_1, glm_2, glm_3)
 }

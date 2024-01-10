@@ -3,13 +3,13 @@
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
 lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
 lm_3 = lm(mpg ~ ., data = mtcars)
-lm_combined = smelt(lm_1, lm_2, lm_3)
+lm_combined = stack_metrics(lm_1, lm_2, lm_3)
 
 # set up basic glm's to test properties of smelt()
 glm_1 = glm(vs ~ drat + hp, data = mtcars)
 glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = glm(vs ~ ., data = mtcars)
-glm_combined = smelt(glm_1, glm_2, glm_3)
+glm_combined = stack_metrics(glm_1, glm_2, glm_3)
 
 test_that("dimension of output dataframe are correct", {
   shape = dim(lm_combined)

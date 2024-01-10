@@ -1,17 +1,21 @@
+
+```{r}
+library(tidyverse)
+```
+
 ```{r}
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
 lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
 lm_3 = lm(mpg ~ ., data = mtcars)
-lm_combined = smelt(lm_1, lm_2, lm_3)
-```
 
-```{r}
 glm_1 = glm(vs ~ drat + hp, data = mtcars)
 glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = glm(vs ~ ., data = mtcars)
-glm_combined = smelt(glm_1, glm_2, glm_3)
+```
 
-glm_combined
+```{r}
+glm_combined = stack_metrics(glm_1, glm_2, glm_3)
+lm_combined = stack_metrics(lm_1, lm_2, lm_3)
 ```
 
 ```{r}
@@ -21,16 +25,7 @@ lmer_2 = lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
 smelt(lmer_1)
 ```
 
-
 ```{r}
-
-dplyr::bind_rows(
-  data.frame(model = "model1", 
-             summary(lm_1)$coef[, c('Estimate', 'Std. Error')]),
-    data.frame(model = "model2", 
-             summary(lm_2)$coef[, c('Estimate', 'Std. Error')]),
-)
+stack_coeff(glm_1, glm_2)
 ```
-
-
 
