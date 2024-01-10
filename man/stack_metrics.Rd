@@ -2,7 +2,7 @@
 % Please edit documentation in R/combine.R
 \name{stack_metrics}
 \alias{stack_metrics}
-\title{Calculate and combine model metrics for any number of lm and glm models}
+\title{Combine model metrics for any number of lm, glm, and lmer models}
 \usage{
 stack_metrics(...)
 }
@@ -26,4 +26,8 @@ glm_1 = glm(vs ~ drat + hp, data = mtcars)
 glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = glm(vs ~ ., data = mtcars)
 glm_combined = stack_metrics(glm_1, glm_2, glm_3)
+
+lmer_1 = lme4::lmer(Sepal.Length ~ (1 | Species), data = iris)
+lmer_2 = lme4::lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
+lmer_combined = stack_metrics(lmer_1, lmer_2)
 }

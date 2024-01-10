@@ -1,4 +1,4 @@
-#' Calculate and combine model metrics for any number of lm and glm models
+#' Combine model metrics for any number of lm, glm, and lmer models
 #'
 #' `stack_metrics()` does some stuff that I will write more about later,
 #' this is the description section.
@@ -18,10 +18,18 @@
 #' glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 #' glm_3 = glm(vs ~ ., data = mtcars)
 #' glm_combined = stack_metrics(glm_1, glm_2, glm_3)
+#'
+#' lmer_1 = lme4::lmer(Sepal.Length ~ (1 | Species), data = iris)
+#' lmer_2 = lme4::lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
+#' lmer_combined = stack_metrics(lmer_1, lmer_2)
 stack_metrics = function(...) {
 
   models = list(...)
   model_sum = lapply(models, summary)
+
+  if (length(models) == 0) {
+    stop("No models were passed into the function.")
+  }
 
   # make sure every item is an lm summary
   if (model_type_check(model_sum, "summary.lm")) {
@@ -42,8 +50,17 @@ stack_metrics = function(...) {
       AIC = get_metric(model_sum, "aic"),
       BIC = unlist(lapply(models, function(x) stats::BIC(x)))
     )
+  } else if (model_type_check(model_sum, "summary.merMod")) {
+    # data frame but for lmer objects
+    data.frame(
+      model = as.character(get_metric(model_sum, "call")),
+      deviance = -2 * get_metric(model_sum, "logLik"),
+      AIC = unlist(lapply(models, function(x) stats::AIC(x))),
+      BIC = unlist(lapply(models, function(x) stats::BIC(x)))
+    )
   } else {
-    stop("Model type not yet supported!")
+    stop("Model type not yet supported! Make sure all of your models are of
+         the same type.")
   }
 }
 
@@ -72,15 +89,23 @@ stack_coeff = function(...) {
   models = list(...)
   output = data.frame()
 
+  if (length(models) == 0) {
+    stop("No models were passed into the function.")
+  }
+
+  # iteratively build dataframe since we're not summarizing them individually
   for (model in models) {
-    temp_data = data.frame(model_name = as.character(model$call)[2],
-                           summary(model)$coef[, c('Estimate', 'Std. Error')],
+    temp_data = data.frame(model_name = as.character(model$call)[2], # maybe change this to summary$call for lemur
+                           summary(model)$coef[, c('Estimate',
+                                                   'Std. Error',
+                                                   'Pr(>|t|)')],
                            stats::confint(model)) |>
       tibble::rownames_to_column(var = 'coefficient')
     output = dplyr::bind_rows(output, temp_data)
   }
+
   names(output) = c("coefficient", "model_name", "estimate", "std_error",
-                    "lb_2.5%", "ub_97.5%")
+                    "p_value", "lb_2.5%", "ub_97.5%")
   return(output)
 }
 

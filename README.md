@@ -30,7 +30,24 @@ smelt(lm_1, lm_2)
 Contributions are encouraged and welcomed, feel free to submit a PR or open an 
 issue!
 
-# Workflow 
+# TODO
+
+- currently on ch. ? of book 
+- throw error if nothing is passed in / fail gracefully
+- testing: 
+  - add coefficient testing 
+- ask someone: what metrics do we want? 
+  
+# Presentation Notes: 
+
+## Interesting Stuff: 
+
+- stats::confint and MASS::confint for glm's, see ?confint
+- deviance / AIC are attributes of glm, but not lmer models!
+  - difficult to write universal functions to get metrics etc.
+- dependencies are confusing
+  
+## Workflow: 
 
 1. Edit one or more files below R/.
 2. document() (if you’ve made any changes that impact help files or NAMESPACE)
@@ -38,20 +55,3 @@ issue!
 4. Run some examples interactively.
 5. test() (or test_active_file())
 6. check()
-
-# GOAL 
-
-3 exported functions total
-* put all metrics in one function (lm / glm)
-* put all coeff + confint + se in one function (lm / glm / lme4)
-- something to output "best" model by a given criteria
-
-# TODO
-
-- currently on ch. ? of book 
-- throw error if nothing is passed in 
-- function to get betas + C.I. + coeff
-- look at R style guide
-- check what type of glm it is? can you compare different glm types? 
-- unit tests 
-  - what's the best way to test a dataframe output or a plot output? 

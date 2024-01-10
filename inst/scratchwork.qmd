@@ -1,6 +1,7 @@
 
 ```{r}
 library(tidyverse)
+library(lme4)
 ```
 
 ```{r}
@@ -11,6 +12,8 @@ lm_3 = lm(mpg ~ ., data = mtcars)
 glm_1 = glm(vs ~ drat + hp, data = mtcars)
 glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = glm(vs ~ ., data = mtcars)
+
+model_list = list(lm_1, lm_2, lm_3)
 ```
 
 ```{r}
@@ -22,10 +25,16 @@ lm_combined = stack_metrics(lm_1, lm_2, lm_3)
 lmer_1 = lmer(Sepal.Length ~ (1 | Species), data = iris)
 lmer_2 = lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
 
-smelt(lmer_1)
+
 ```
 
 ```{r}
 stack_coeff(glm_1, glm_2)
+stack_coeff(lm_1, lm_2)
+```
+```{r}
+test_list = list()
+
+length(test_list)
 ```
 
