@@ -21,16 +21,16 @@ lmer_metrics = stack_metrics(lmer_1, lmer_2)
 
 # testing functions -------------------
 # testing stack_metrics()
-test_that("dimension of output dataframe are correct", {
+test_that("dimension of output tibble are correct", {
   expect_equal(dim(lm_metrics), c(3,6))
   expect_equal(dim(glm_metrics), c(3,4))
   expect_equal(dim(lmer_metrics), c(2,4))
 })
 
-test_that("output is correctly a dataframe", {
-  expect_s3_class(lm_metrics, 'data.frame')
-  expect_s3_class(glm_metrics, 'data.frame')
-  expect_s3_class(lmer_metrics, 'data.frame')
+test_that("output is correctly a tibble", {
+  expect_s3_class(lm_metrics[1], 'tbl_df')
+  expect_s3_class(glm_metrics[1], 'tbl_df')
+  expect_s3_class(lmer_metrics[1], 'tbl_df')
 })
 
 test_that("correct columns are returned", {
@@ -43,14 +43,14 @@ test_that("correct columns are returned", {
 })
 
 # testing stack_coeff()
-test_that("dimension of output dataframe are correct", {
+test_that("dimension of output tibble are correct", {
   expect_equal(dim(lm_coeff), c(19, 7))
   expect_equal(dim(glm_coeff), c(17, 7))
 })
 
-test_that("output is correctly a dataframe", {
-  expect_s3_class(lm_coeff, 'data.frame')
-  expect_s3_class(glm_coeff, 'data.frame')
+test_that("output is correctly a tibble", {
+  expect_s3_class(lm_coeff[1], 'tbl_df')
+  expect_s3_class(glm_coeff[1], 'tbl_df')
 })
 
 

@@ -1,7 +1,11 @@
 #' Combine model metrics for any number of lm, glm, and lmer models
 #'
-#' `stack_metrics()` does some stuff that I will write more about later,
-#' this is the description section.
+#' `stack_metrics()` calculates basic model metrics like MSE for the models
+#' passed in, then stacks them in a dataframe for comparison. This supports
+#' lm, glm, and lmer models, and different metrics are calculated for each.
+#' This does not perform model selection based on a given criteria, but it
+#' makes the tedious task of, say, comparing R-squared across several models
+#' very easy.
 #'
 #' @param ... models to summarize and combine.
 #'
@@ -33,8 +37,8 @@ stack_metrics = function(...) {
 
   # make sure every item is an lm summary
   if (model_type_check(model_sum, "summary.lm")) {
-    # combine everything into a dataframe to output
-    data.frame(
+    # combine everything into a tibble to output
+    tibble::tibble(
       model = as.character(get_metric(model_sum, "call")),
       r.squared = get_metric(model_sum, "r.squared"),
       adj.r.squared = get_metric(model_sum, "adj.r.squared"),
@@ -44,7 +48,7 @@ stack_metrics = function(...) {
     )
   } else if (model_type_check(model_sum, "summary.glm")) {
     # data frame but for glm objects
-    data.frame(
+    tibble::tibble(
       model = as.character(get_metric(model_sum, "call")),
       deviance = get_metric(model_sum, "deviance"),
       AIC = get_metric(model_sum, "aic"),
@@ -52,7 +56,7 @@ stack_metrics = function(...) {
     )
   } else if (model_type_check(model_sum, "summary.merMod")) {
     # data frame but for lmer objects
-    data.frame(
+    tibble::tibble(
       model = as.character(get_metric(model_sum, "call")),
       deviance = -2 * get_metric(model_sum, "logLik"),
       AIC = unlist(lapply(models, function(x) stats::AIC(x))),
@@ -66,12 +70,13 @@ stack_metrics = function(...) {
 
 #' Stack coefficents, confidence intervals, and standard errors
 #'
-#' `stack_coeff()` does some stuff that I will write more about later,
-#' this is the description section.
+#' `stack_coeff()` takes several lm or glm models, pulls out their coefficients,
+#' standard errors, and confidence intervals, and stacks everything into a
+#' [tibble()] for easy comparison across models.
 #'
 #' @param ... models to summarize and combine.
 #'
-#' @return A [data.frame()] with coefficients, C.I.s., and standard errors.
+#' @return A [tibble()] with coefficients, C.I.s., and standard errors.
 #' @export
 #'
 #' @examples
@@ -89,14 +94,19 @@ stack_coeff = function(...) {
   models = list(...)
   output = data.frame()
 
+  # think about making model_type_check more flexible if model isn't a summary()
   if (length(models) == 0) {
     stop("No models were passed into the function.")
+  } else if (!model_type_check(models, "lm") &
+             !(all(unlist(lapply(models, function(x) class(x)[1] == "glm"))))
+  ) {
+    stop("Model type not yet supported!")
   }
 
-  # iteratively build dataframe since we're not summarizing them individually
+  # iteratively build dataframes since we're not summarizing them individually
   for (model in models) {
-    temp_data = data.frame(model_name = as.character(model$call)[2], # maybe change this to summary$call for lemur
-                           summary(model)$coef[, c('Estimate',
+    temp_data = data.frame(model_name = as.character(model$call)[2],
+                               summary(model)$coef[, c('Estimate',
                                                    'Std. Error',
                                                    'Pr(>|t|)')],
                            stats::confint(model)) |>
@@ -104,8 +114,11 @@ stack_coeff = function(...) {
     output = dplyr::bind_rows(output, temp_data)
   }
 
-  names(output) = c("coefficient", "model_name", "estimate", "std_error",
-                    "p_value", "lb_2.5%", "ub_97.5%")
+  new_names = c("coefficient", "model_name", "estimate", "std_error",
+            "p_value", "lb_2.5", "ub_97.5")
+  names(output) = new_names
+  output = tibble::tibble(output)
+
   return(output)
 }
 
