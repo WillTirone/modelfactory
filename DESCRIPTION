@@ -17,7 +17,7 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     dplyr,
-    lme4,
+    lme4 (>= 1.1-35.1),
     MASS,
     stats,
     tibble
