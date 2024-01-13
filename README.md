@@ -41,6 +41,9 @@ issue!
 - finish / verify that the functions have roxygen correct
 - GH actions CI 
   
+# Questions 
+  - are imports correct? 
+
 # Presentation Notes: 
 
 ## Interesting Stuff: 
