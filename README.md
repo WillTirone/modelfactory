@@ -1,6 +1,7 @@
 
   <!-- badges: start -->
   [![R-CMD-check](https://github.com/WillTirone/modelfactory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/R-CMD-check.yaml)
+  [![test-coverage](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml)
   <!-- badges: end -->
 
 <img src="inst/logo.png" height="300"/>
@@ -39,7 +40,17 @@ issue!
 - remove unnecessary README stuff
 - write a vignette 
 - finish / verify that the functions have roxygen correct
-- GH actions CI 
+- GH actions CI / try using use_github_action() 
+
+First release
+  * usethis::use_news_md()
+  * usethis::use_cran_comments()
+  * Update (aspirational) install instructions in README
+  * Proofread Title: and Description:
+  * Check that all exported functions have @returns and @examples
+  * Check that Authors@R: includes a copyright holder (role ‘cph’)
+  * Check licensing of included files
+  * Review https://github.com/DavisVaughan/extrachecks
   
 # Questions 
   - are imports correct? 
