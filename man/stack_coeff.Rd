@@ -10,11 +10,12 @@ stack_coeff(...)
 \item{...}{models to summarize and combine.}
 }
 \value{
-A \code{\link[=data.frame]{data.frame()}} with coefficients, C.I.s., and standard errors.
+A \code{\link[=tibble]{tibble()}} with coefficients, C.I.s., and standard errors.
 }
 \description{
-\code{stack_coeff()} does some stuff that I will write more about later,
-this is the description section.
+\code{stack_coeff()} takes several lm or glm models, pulls out their coefficients,
+standard errors, and confidence intervals, and stacks everything into a
+\code{\link[=tibble]{tibble()}} for easy comparison across models.
 }
 \examples{
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)

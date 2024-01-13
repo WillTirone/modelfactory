@@ -13,8 +13,12 @@ stack_metrics(...)
 A \code{\link[=data.frame]{data.frame()}} that includes a variety of evaluation metrics.
 }
 \description{
-\code{stack_metrics()} does some stuff that I will write more about later,
-this is the description section.
+\code{stack_metrics()} calculates basic model metrics like MSE for the models
+passed in, then stacks them in a dataframe for comparison. This supports
+lm, glm, and lmer models, and different metrics are calculated for each.
+This does not perform model selection based on a given criteria, but it
+makes the tedious task of, say, comparing R-squared across several models
+very easy.
 }
 \examples{
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
