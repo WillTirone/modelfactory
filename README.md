@@ -1,4 +1,8 @@
 
+  <!-- badges: start -->
+  [![R-CMD-check](https://github.com/WillTirone/modelfactory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
+
 <img src="inst/logo.png" height="300"/>
 
 # About 
@@ -30,14 +34,12 @@ smelt(lm_1, lm_2)
 Contributions are encouraged and welcomed, feel free to submit a PR or open an 
 issue!
 
-# TODO
+# CRAN Submission
 
-- currently on ch. ? of book 
-- throw error if nothing is passed in / fail gracefully
-- testing: 
-  - add coefficient testing 
-- ask someone: what metrics do we want? 
-- add R^2 / adj R^2
+- remove unnecessary README stuff
+- write a vignette 
+- finish / verify that the functions have roxygen correct
+- GH actions CI 
   
 # Presentation Notes: 
 
@@ -46,6 +48,7 @@ issue!
 - stats::confint and MASS::confint for glm's, see ?confint
 - deviance / AIC are attributes of glm, but not lmer models!
   - difficult to write universal functions to get metrics etc.
+  - this is why it's confusing to do this by hand
 - dependencies are confusing
   
 ## Workflow: 

@@ -53,4 +53,13 @@ test_that("output is correctly a tibble", {
   expect_s3_class(glm_coeff[1], 'tbl_df')
 })
 
+test_that("correct columns are returned", {
+  expect_equal(names(lm_coeff),
+               c("coefficient", "model_name", "estimate", "std_error",
+                 "p_value", "lb_2.5", "ub_97.5"))
+  expect_equal(names(glm_coeff),
+               c("coefficient", "model_name", "estimate", "std_error",
+                 "p_value", "lb_2.5", "ub_97.5"))
+})
+
 
