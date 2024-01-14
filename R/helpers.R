@@ -6,8 +6,14 @@ get_metric = function(model_sum, metric) {
 }
 
 # check to make sure every model is, say, glm or lm etc.
-model_type_check = function(model_sum, model_type) {
-  (all(unlist(lapply(model_sum, function(x) class(x) == model_type))))
+# some models have multiple attributes if passed straight in as a model,
+# so use summary = FALSE in that case
+model_type_check = function(model_sum, model_type, summary = TRUE) {
+  if (summary == TRUE) {
+    (all(unlist(lapply(model_sum, function(x) class(x) == model_type))))
+  } else {
+    (all(unlist(lapply(model_sum, function(x) class(x)[1] == model_type))))
+  }
 }
 
 # internal function to calculate metrics from summary.

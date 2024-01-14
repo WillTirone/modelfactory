@@ -1,4 +1,4 @@
-#' Combine model metrics for any number of lm, glm, and lmer models
+#' Combine model metrics for n number of lm, glm, and lmer models
 #'
 #' `stack_metrics()` calculates basic model metrics like MSE for the models
 #' passed in, then stacks them in a dataframe for comparison. This supports
@@ -68,13 +68,13 @@ stack_metrics = function(...) {
   }
 }
 
-#' Stack coefficents, confidence intervals, and standard errors
+#' Stack coefficents, confidence intervals, and standard errors from n models.
 #'
 #' `stack_coeff()` takes several lm or glm models, pulls out their coefficients,
 #' standard errors, and confidence intervals, and stacks everything into a
 #' [tibble()] for easy comparison across models.
 #'
-#' @param ... models to summarize and combine.
+#' @param ... models to summarize and combine. These should NOT be summarized.
 #'
 #' @return A [tibble()] with coefficients, C.I.s., and standard errors.
 #' @export
@@ -94,26 +94,25 @@ stack_coeff = function(...) {
   models = list(...)
   output = data.frame()
 
-  # think about making model_type_check more flexible if model isn't a summary()
   if (length(models) == 0) {
     stop("No models were passed into the function.")
-  } else if (!model_type_check(models, "lm") &
-             !(all(unlist(lapply(models, function(x) class(x)[1] == "glm"))))
-  ) {
-    stop("Model type not yet supported!")
+  } else if (!model_type_check(models, "lm", summary = FALSE) &
+             !model_type_check(models, "glm", summary = FALSE)) {
+    stop("Model type not yet supported! Try lm or glm models.")
   }
 
   # iteratively build dataframes since we're not summarizing them individually
   for (model in models) {
     temp_data = data.frame(model_name = as.character(model$call)[2],
-                               summary(model)$coef[, c('Estimate',
+                           summary(model)$coef[, c('Estimate',
                                                    'Std. Error',
                                                    'Pr(>|t|)')],
                            stats::confint(model)) |>
-      tibble::rownames_to_column(var = 'coefficient')
+                tibble::rownames_to_column(var = 'coefficient')
     output = dplyr::bind_rows(output, temp_data)
   }
 
+  # rename things and output a tibble()
   new_names = c("coefficient", "model_name", "estimate", "std_error",
             "p_value", "lb_2.5", "ub_97.5")
   names(output) = new_names

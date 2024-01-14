@@ -15,7 +15,13 @@ This package aims to take care of that.
 
 # Installation
 
-You can install the development version of modelfactory with: 
+You can install the package from CRAN with: 
+
+``` r
+install.packages("modelfactory")
+```
+
+Or, you can install the development version of modelfactory with: 
 
 ``` r
 # install.packages("devtools")
@@ -27,7 +33,6 @@ devtools::install_github("WillTirone/modelfactory")
 ``` r
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
 lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
-smelt(lm_1, lm_2)
 ```
 
 # Contributing 
@@ -38,9 +43,8 @@ issue!
 # CRAN Submission
 
 - remove unnecessary README stuff
-- write a vignette 
 - finish / verify that the functions have roxygen correct
-- GH actions CI / try using use_github_action() 
+- add examples to readme
 
 First release
   * usethis::use_news_md()
@@ -54,22 +58,6 @@ First release
   
 # Questions 
   - are imports correct? 
+  - do i have to have a vignette if examples are in readme? 
+  - weird lme4 issue: https://stackoverflow.com/questions/77481539/error-in-initializeptr-function-cholmod-factor-ldeta-not-provided-by-pack
 
-# Presentation Notes: 
-
-## Interesting Stuff: 
-
-- stats::confint and MASS::confint for glm's, see ?confint
-- deviance / AIC are attributes of glm, but not lmer models!
-  - difficult to write universal functions to get metrics etc.
-  - this is why it's confusing to do this by hand
-- dependencies are confusing
-  
-## Workflow: 
-
-1. Edit one or more files below R/.
-2. document() (if you’ve made any changes that impact help files or NAMESPACE)
-3. load_all()
-4. Run some examples interactively.
-5. test() (or test_active_file())
-6. check()

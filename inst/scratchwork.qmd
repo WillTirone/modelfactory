@@ -13,31 +13,16 @@ glm_1 = glm(vs ~ drat + hp, data = mtcars)
 glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = glm(vs ~ ., data = mtcars)
 
-model_list = list(lm_1, lm_2, lm_3)
-```
-
-```{r}
-glm_combined = stack_metrics(glm_1, glm_2, glm_3)
-lm_combined = stack_metrics(lm_1, lm_2, lm_3)
-```
-
-```{r}
 lmer_1 = lmer(Sepal.Length ~ (1 | Species), data = iris)
 lmer_2 = lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
 
-
+model_list = list(lm_1, lm_2, lm_3)
+lmer_list = list(lmer_1, lmer_2)
+glm_list = list(glm_1, glm_2, glm_3)
 ```
 
-```{r}
-stack_coeff(glm_1, glm_2, glm_3)
-stack_coeff(lm_1, lm_2, lm_3)
-```
 
-```{r}
-df1 = data.frame(num = c(5,6,7))
-df_list = list(df1, df1)
 
-df_list |> bind_rows()
-```
+
 
 
