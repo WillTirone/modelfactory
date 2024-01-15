@@ -7,9 +7,9 @@
 #' makes the tedious task of, say, comparing R-squared across several models
 #' very easy.
 #'
-#' @param ... models to summarize and combine.
+#' @param ... lm, glm, or lmer models to summarize and combine.
 #'
-#' @return A [data.frame()] that includes a variety of evaluation metrics.
+#' @return A [tibble()] that includes a variety of evaluation metrics.
 #' @export
 #'
 #' @examples
@@ -68,15 +68,17 @@ stack_metrics = function(...) {
   }
 }
 
-#' Stack coefficents, confidence intervals, and standard errors from n models.
+#' Stack coefficents, confidence intervals, and standard errors for n models.
 #'
 #' `stack_coeff()` takes several lm or glm models, pulls out their coefficients,
 #' standard errors, and confidence intervals, and stacks everything into a
 #' [tibble()] for easy comparison across models.
 #'
-#' @param ... models to summarize and combine. These should NOT be summarized.
+#' @param ... lm or glm models to summarize and combine.
+#' @param ci width of confidence, default = 0.95
 #'
-#' @return A [tibble()] with coefficients, C.I.s., and standard errors.
+#' @return A [tibble()] with coefficients, confidence intervals, and standard
+#' errors.
 #' @export
 #'
 #' @examples
@@ -89,7 +91,7 @@ stack_metrics = function(...) {
 #' glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 #' glm_3 = glm(vs ~ ., data = mtcars)
 #' glm_combined = stack_coeff(glm_1, glm_2, glm_3)
-stack_coeff = function(...) {
+stack_coeff = function(..., ci = 0.95) {
 
   models = list(...)
   output = data.frame()
@@ -107,14 +109,14 @@ stack_coeff = function(...) {
                            summary(model)$coef[, c('Estimate',
                                                    'Std. Error',
                                                    'Pr(>|t|)')],
-                           stats::confint(model)) |>
+                           stats::confint(model, level = ci)) |>
                 tibble::rownames_to_column(var = 'coefficient')
     output = dplyr::bind_rows(output, temp_data)
   }
 
   # rename things and output a tibble()
   new_names = c("coefficient", "model_name", "estimate", "std_error",
-            "p_value", "lb_2.5", "ub_97.5")
+            "p_value", "lower_ci", "upper_ci")
   names(output) = new_names
   output = tibble::tibble(output)
 

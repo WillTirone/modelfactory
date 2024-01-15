@@ -56,10 +56,10 @@ test_that("output is correctly a tibble", {
 test_that("correct columns are returned", {
   expect_equal(names(lm_coeff),
                c("coefficient", "model_name", "estimate", "std_error",
-                 "p_value", "lb_2.5", "ub_97.5"))
+                 "p_value", "lower_ci", "upper_ci"))
   expect_equal(names(glm_coeff),
                c("coefficient", "model_name", "estimate", "std_error",
-                 "p_value", "lb_2.5", "ub_97.5"))
+                 "p_value", "lower_ci", "upper_ci"))
 })
 
 

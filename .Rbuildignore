@@ -3,3 +3,4 @@
 ^LICENSE\.md$
 logo.png
 ^\.github$
+^cran-comments\.md$

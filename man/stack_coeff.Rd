@@ -2,15 +2,18 @@
 % Please edit documentation in R/combine.R
 \name{stack_coeff}
 \alias{stack_coeff}
-\title{Stack coefficents, confidence intervals, and standard errors}
+\title{Stack coefficents, confidence intervals, and standard errors for n models.}
 \usage{
-stack_coeff(...)
+stack_coeff(..., ci = 0.95)
 }
 \arguments{
-\item{...}{models to summarize and combine.}
+\item{...}{lm or glm models to summarize and combine.}
+
+\item{ci}{width of confidence, default = 0.95}
 }
 \value{
-A \code{\link[=tibble]{tibble()}} with coefficients, C.I.s., and standard errors.
+A \code{\link[=tibble]{tibble()}} with coefficients, confidence intervals, and standard
+errors.
 }
 \description{
 \code{stack_coeff()} takes several lm or glm models, pulls out their coefficients,

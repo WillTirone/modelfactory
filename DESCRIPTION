@@ -1,13 +1,13 @@
 Package: modelfactory
-Title: Combines Statistical Models Into A DataFrame For Comparison
+Title: Combine Statistical Models Into a DataFrame for Comparison
 Version: 0.0.0.9000
-Authors@R: person("Will", "Tirone", email = "will.tirone1@gmail.com",
+Authors@R: person("Will", "Tirone", email = "will.tirone1@gmail.com", 
     role = c("aut", "cre", "cph"))
 Description: Statisticians often want to compare different models fit to the 
-  same data set. However, this usually involves a lot of manual code to fish
-  items out of summary() or model objects. 'modelfactory' offers the capability
-  to pass multiple models in and get out metrics or coefficients for quick 
-  comparison with easy-to-remember syntax.
+    same data set. However, this usually involves a lot of manual code to fish
+    items out of summary() or plain model objects. 'modelfactory' offers the 
+    capability to pass multiple models in and get out metrics or coefficients 
+    for quick comparison with easy-to-remember syntax.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,7 +17,7 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     dplyr,
-    lme4,
+    lme4 (>= 1.1-35.1),
     Matrix (>= 1.6-5), 
     MASS,
     stats,

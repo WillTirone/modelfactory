@@ -2,15 +2,15 @@
 % Please edit documentation in R/combine.R
 \name{stack_metrics}
 \alias{stack_metrics}
-\title{Combine model metrics for any number of lm, glm, and lmer models}
+\title{Combine model metrics for n number of lm, glm, and lmer models}
 \usage{
 stack_metrics(...)
 }
 \arguments{
-\item{...}{models to summarize and combine.}
+\item{...}{lm, glm, or lmer models to summarize and combine.}
 }
 \value{
-A \code{\link[=data.frame]{data.frame()}} that includes a variety of evaluation metrics.
+A \code{\link[=tibble]{tibble()}} that includes a variety of evaluation metrics.
 }
 \description{
 \code{stack_metrics()} calculates basic model metrics like MSE for the models

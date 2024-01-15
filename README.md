@@ -40,24 +40,16 @@ lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
 Contributions are encouraged and welcomed, feel free to submit a PR or open an 
 issue!
 
-# CRAN Submission
+# CRAN Submission / TODO
 
 - remove unnecessary README stuff
 - finish / verify that the functions have roxygen correct
 - add examples to readme
+- add to NEWS.md
+- read release section again and use use_release_issue()
 
-First release
-  * usethis::use_news_md()
-  * usethis::use_cran_comments()
-  * Update (aspirational) install instructions in README
-  * Proofread Title: and Description:
-  * Check that all exported functions have @returns and @examples
-  * Check that Authors@R: includes a copyright holder (role ‘cph’)
-  * Check licensing of included files
-  * Review https://github.com/DavisVaughan/extrachecks
-  
 # Questions 
   - are imports correct? 
-  - do i have to have a vignette if examples are in readme? 
+  - minimum R version? 
   - weird lme4 issue: https://stackoverflow.com/questions/77481539/error-in-initializeptr-function-cholmod-factor-ldeta-not-provided-by-pack
 
