@@ -25,10 +25,6 @@ Or, you can install the development version of modelfactory with:
 devtools::install_github("WillTirone/modelfactory")
 ```
 
-# Usage 
-
-See the [references](https://willtirone.github.io/modelfactory/reference) tab for documentation.
-
 # Contributing 
 
 Contributions are encouraged and welcomed, feel free to submit a PR or open an issue!
