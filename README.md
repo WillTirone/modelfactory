@@ -4,14 +4,9 @@
   [![test-coverage](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml)
   <!-- badges: end -->
 
-<img src="man/figures/logo.png" height="300"/>
-
 # About 
 
-`modelfactory` is an R package that takes care of the tedious task of comparing
-model metrics and attributes. It's always a pain when I need to calculate, say,
-an intercept, S.E., and 95% C.I. for several models and combine them into a dataframe.
-This package aims to take care of that.
+Statisticians often want to compare different models fit to the same data set. However, this usually involves a lot of manual code to fish items out of summary() or plain model objects. 'modelfactory' offers the capability to pass multiple models in and get out metrics or coefficients for quick comparison with easy-to-remember syntax.
 
 # Installation
 
@@ -28,12 +23,9 @@ Or, you can install the development version of modelfactory with:
 devtools::install_github("WillTirone/modelfactory")
 ```
 
-# Usage
+# Usage 
 
-``` r
-lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
-lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
-```
+See the [references](https://willtirone.github.io/modelfactory/reference) tab for documentation.
 
 # Contributing 
 
@@ -50,8 +42,6 @@ issue!
 - read release section again and use use_release_issue()
 
 # TODO: 
-  - fix image in pkgdown site
-  - turn on github pages for repo 
   - expects output 
 
 # Change

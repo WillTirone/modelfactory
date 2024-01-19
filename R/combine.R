@@ -17,15 +17,18 @@
 #' lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
 #' lm_3 = lm(mpg ~ ., data = mtcars)
 #' lm_combined = stack_metrics(lm_1, lm_2, lm_3)
+#' print(lm_combined)
 #'
 #' glm_1 = glm(vs ~ drat + hp, data = mtcars)
 #' glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 #' glm_3 = glm(vs ~ ., data = mtcars)
 #' glm_combined = stack_metrics(glm_1, glm_2, glm_3)
+#' print(glm_combined)
 #'
 #' lmer_1 = lme4::lmer(Sepal.Length ~ (1 | Species), data = iris)
 #' lmer_2 = lme4::lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
 #' lmer_combined = stack_metrics(lmer_1, lmer_2)
+#' print(lmer_combined)
 stack_metrics = function(...) {
 
   models = list(...)
