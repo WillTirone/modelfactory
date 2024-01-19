@@ -3,6 +3,8 @@
   [![R-CMD-check](https://github.com/WillTirone/modelfactory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/R-CMD-check.yaml)
   [![test-coverage](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml)
   <!-- badges: end -->
+  
+<img src="man/figures/logo.png" align="right" height="138" />
 
 # About 
 
@@ -29,20 +31,4 @@ See the [references](https://willtirone.github.io/modelfactory/reference) tab fo
 
 # Contributing 
 
-Contributions are encouraged and welcomed, feel free to submit a PR or open an 
-issue!
-
-# CRAN Submission / TODO
-
-- remove unnecessary README stuff
-- delete inst
-- finish / verify that the functions have roxygen correct
-- add examples to readme
-- add to NEWS.md
-- read release section again and use use_release_issue()
-
-# TODO: 
-  - expects output 
-
-# Change
-  - look at r hub 
+Contributions are encouraged and welcomed, feel free to submit a PR or open an issue!

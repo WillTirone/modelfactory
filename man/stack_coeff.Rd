@@ -9,7 +9,7 @@ stack_coeff(..., ci = 0.95)
 \arguments{
 \item{...}{lm or glm models to summarize and combine.}
 
-\item{ci}{width of confidence, default = 0.95}
+\item{ci}{width of confidence, default = 0.95.}
 }
 \value{
 A \code{\link[=tibble]{tibble()}} with coefficients, confidence intervals, and standard
@@ -21,13 +21,21 @@ standard errors, and confidence intervals, and stacks everything into a
 \code{\link[=tibble]{tibble()}} for easy comparison across models.
 }
 \examples{
+# multiple lm example ----------------------------------
 lm_1 = lm(mpg ~ cyl + disp + hp, data = mtcars)
 lm_2 = lm(mpg ~ hp + drat + wt, data = mtcars)
 lm_3 = lm(mpg ~ ., data = mtcars)
 lm_combined = stack_coeff(lm_1, lm_2, lm_3)
+lm_combined
 
+# sometimes you might just want 1 model's summary ------
+single_lm = stack_coeff(lm_1)
+single_lm
+
+# glm example ------------------------------------------
 glm_1 = glm(vs ~ drat + hp, data = mtcars)
 glm_2 = glm(vs ~ wt + qsec, data = mtcars)
 glm_3 = glm(vs ~ ., data = mtcars)
 glm_combined = stack_coeff(glm_1, glm_2, glm_3)
+glm_combined
 }

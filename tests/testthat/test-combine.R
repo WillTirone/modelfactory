@@ -1,5 +1,5 @@
 
-# model set up ----------------------
+# model set up -------------------------------------------------
 
 # set up basic lm's to test properties of smelt()
 lm_1 = stats::lm(mpg ~ cyl + disp + hp, data = mtcars)
@@ -19,8 +19,8 @@ lmer_1 = lme4::lmer(Sepal.Length ~ (1 | Species), data = iris)
 lmer_2 = lme4::lmer(Sepal.Length ~ (1 | Species) + Petal.Length, data = iris)
 lmer_metrics = stack_metrics(lmer_1, lmer_2)
 
-# testing functions -------------------
-# testing stack_metrics()
+# testing functions --------------------------------------------
+# testing stack_metrics() --------------------------------------
 test_that("dimension of output tibble are correct", {
   expect_equal(dim(lm_metrics), c(3,6))
   expect_equal(dim(glm_metrics), c(3,4))
@@ -42,7 +42,13 @@ test_that("correct columns are returned", {
                c("model", "deviance", "AIC", "BIC"))
 })
 
-# testing stack_coeff()
+test_that("data outputs are equal", {
+  expect_snapshot_value(stack_metrics(lm_1, lm_2, lm_3), style = 'json2')
+  expect_snapshot_value(stack_metrics(glm_1, glm_2, glm_3), style = 'json2')
+  expect_snapshot_value(stack_metrics(lmer_1, lmer_2), style = 'json2')
+})
+
+# testing stack_coeff() ----------------------------------------
 test_that("dimension of output tibble are correct", {
   expect_equal(dim(lm_coeff), c(19, 7))
   expect_equal(dim(glm_coeff), c(17, 7))
@@ -60,6 +66,11 @@ test_that("correct columns are returned", {
   expect_equal(names(glm_coeff),
                c("coefficient", "model_name", "estimate", "std_error",
                  "p_value", "lower_ci", "upper_ci"))
+})
+
+test_that("data outputs are equal", {
+  expect_snapshot_value(stack_coeff(lm_1, lm_2, lm_3), style = 'json2')
+  expect_snapshot_value(stack_coeff(glm_1, glm_2, glm_3), style = 'json2')
 })
 
 
