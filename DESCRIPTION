@@ -21,4 +21,5 @@ Imports:
     MASS,
     stats,
     tibble
-URL: https://willtirone.github.io/modelfactory/
+URL: https://willtirone.github.io/modelfactory/, https://github.com/WillTirone/modelfactory
+BugReports: https://github.com/WillTirone/modelfactory/issues
