@@ -1,6 +1,6 @@
 Package: modelfactory
 Title: Combine Statistical Models Into a Tibble for Comparison
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: person("Will", "Tirone", email = "will.tirone1@gmail.com", 
     role = c("aut", "cre", "cph"))
 Description: Statisticians often want to compare different models fit to the 
