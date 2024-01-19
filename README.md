@@ -4,7 +4,7 @@
   [![test-coverage](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/WillTirone/modelfactory/actions/workflows/test-coverage.yaml)
   <!-- badges: end -->
 
-<img src="inst/logo.png" height="300"/>
+<img src="man/figures/logo.png" height="300"/>
 
 # About 
 
@@ -43,13 +43,16 @@ issue!
 # CRAN Submission / TODO
 
 - remove unnecessary README stuff
+- delete inst
 - finish / verify that the functions have roxygen correct
 - add examples to readme
 - add to NEWS.md
 - read release section again and use use_release_issue()
 
-# Questions 
-  - are imports correct? 
-  - minimum R version? 
-  - weird lme4 issue: https://stackoverflow.com/questions/77481539/error-in-initializeptr-function-cholmod-factor-ldeta-not-provided-by-pack
+# TODO: 
+  - fix image in pkgdown site
+  - turn on github pages for repo 
+  - expects output 
 
+# Change
+  - look at r hub 
