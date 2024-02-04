@@ -18,7 +18,6 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     dplyr,
-    MASS,
     stats,
     tibble
 URL: https://willtirone.github.io/modelfactory/, https://github.com/WillTirone/modelfactory
